@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Hassan-Khan-s-workspace-v6cds9.eu-central-1.xata.sh/db/snapcast",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
