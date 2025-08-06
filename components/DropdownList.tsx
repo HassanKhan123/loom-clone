@@ -7,16 +7,16 @@ import { cn } from "@/lib/utils";
 
 const DropdownList = ({
   options,
-  //   selectedOption,
-  //   onOptionSelect,
+  selectedOption,
+  onOptionSelect,
   triggerElement,
 }: DropdownListProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  //   const handleOptionClick = (option: string) => {
-  //     onOptionSelect(option);
-  //     setIsOpen(false);
-  //   };
+  const handleOptionClick = (option: string) => {
+    onOptionSelect(option);
+    setIsOpen(false);
+  };
 
   return (
     <div className="relative">
@@ -30,19 +30,19 @@ const DropdownList = ({
             <li
               key={option}
               className={cn("list-item", {
-                // "bg-pink-100 text-white": selectedOption === option,
+                "bg-pink-100 text-white": selectedOption === option,
               })}
-              //   onClick={() => handleOptionClick(option)}
+              onClick={() => handleOptionClick(option)}
             >
               {option}
-              {/* {selectedOption === option && (
+              {selectedOption === option && (
                 <Image
                   src="/assets/icons/check.svg"
                   alt="check"
                   width={16}
                   height={16}
                 />
-              )} */}
+              )}
             </li>
           ))}
         </ul>
