@@ -5,13 +5,11 @@ import { redirect, useRouter } from "next/navigation";
 import ImageWithFallback from "./ImageWithFallback";
 
 import { authClient } from "@/lib/auth-client";
-// import ImageWithFallback from "./ImageWithFallback";
+
 const Navbar = () => {
   const router = useRouter();
-  //   const { data: session } = authClient.useSession();
-  //   const user = session?.user;
-
-  const user = {};
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
 
   return (
     <header className="navbar">
@@ -28,10 +26,9 @@ const Navbar = () => {
 
         {user && (
           <figure>
-            <button onClick={() => router.push(`/profile/123`)}>
+            <button onClick={() => router.push(`/profile/${session?.user.id}`)}>
               <ImageWithFallback
-                src="/assets/images/dummy.jpg"
-                // src={session?.user.image ?? ""}
+                src={session?.user.image ?? ""}
                 alt="User"
                 width={36}
                 height={36}

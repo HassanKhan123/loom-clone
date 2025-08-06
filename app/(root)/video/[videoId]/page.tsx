@@ -1,20 +1,20 @@
-import { redirect } from "next/navigation";
+import { VideoDetailHeader, VideoInfo, VideoPlayer } from "@/components";
 
-// import { VideoDetailHeader, VideoInfo, VideoPlayer } from "@/components";
-// import { getTranscript, getVideoById } from "@/lib/actions/video";
+import { getTranscript, getVideoById } from "@/lib/actions/video";
+import { redirect } from "next/navigation";
 
 const page = async ({ params }: Params) => {
   const { videoId } = await params;
 
-  //   const { user, video } = await getVideoById(videoId);
-  //   if (!video) redirect("/404");
+  const { user, video } = await getVideoById(videoId);
+  if (!video) redirect("/404");
 
-  //   const transcript = await getTranscript(videoId);
+  const transcript = await getTranscript(videoId);
 
   return (
     <main className="wrapper page">
       video details
-      {/* <VideoDetailHeader
+      <VideoDetailHeader
         title={video.title}
         createdAt={video.createdAt}
         userImg={user?.image}
@@ -23,20 +23,20 @@ const page = async ({ params }: Params) => {
         ownerId={video.userId}
         visibility={video.visibility}
         thumbnailUrl={video.thumbnailUrl}
-      /> */}
+      />
       <section className="video-details">
         <div className="content">
-          {/* <VideoPlayer videoId={video.videoId} /> */}
+          <VideoPlayer videoId={video.videoId} />
         </div>
 
-        {/* <VideoInfo
+        <VideoInfo
           transcript={transcript}
           title={video.title}
           createdAt={video.createdAt}
           description={video.description}
           videoId={videoId}
           videoUrl={video.videoUrl}
-        /> */}
+        />
       </section>
     </main>
   );

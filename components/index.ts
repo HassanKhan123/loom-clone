@@ -5,3 +5,6 @@ export { default as DropdownList } from "./DropdownList";
 export { default as VideoCard } from "./VideoCard";
 export { default as Pagination } from "./Pagination";
 export { default as EmptyState } from "./EmptyState";
+export { default as VideoPlayer } from "./VideoPlayer";
+export { default as VideoDetailHeader } from "./VideoDetailHeader";
+export { default as VideoInfo } from "./VideoInfo";

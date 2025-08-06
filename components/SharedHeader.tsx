@@ -7,51 +7,50 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 // import RecordScreen from "./RecordScreen";
 import { filterOptions } from "@/constants";
 
-// import DropdownList from "./DropdownList";
-// import { updateURLParams } from "@/lib/utils";
-import ImageWithFallback from "./ImageWithFallback";
 import DropdownList from "./DropdownList";
+import { updateURLParams } from "@/lib/utils";
+import ImageWithFallback from "./ImageWithFallback";
 
 const SharedHeader = ({ subHeader, title, userImg }: SharedHeaderProps) => {
-  //   const router = useRouter();
-  //   const pathname = usePathname();
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  //   const [searchQuery, setSearchQuery] = useState(
-  //     searchParams.get("query") || ""
-  //   );
+  const [searchQuery, setSearchQuery] = useState(
+    searchParams.get("query") || ""
+  );
   const [selectedFilter, setSelectedFilter] = useState(
     searchParams.get("filter") || "Most Recent"
   );
 
-  //   useEffect(() => {
-  //     setSearchQuery(searchParams.get("query") || "");
-  //     setSelectedFilter(searchParams.get("filter") || "Most Recent");
-  //   }, [searchParams]);
+  useEffect(() => {
+    setSearchQuery(searchParams.get("query") || "");
+    setSelectedFilter(searchParams.get("filter") || "Most Recent");
+  }, [searchParams]);
 
-  //   useEffect(() => {
-  //     const debounceTimer = setTimeout(() => {
-  //       if (searchQuery !== searchParams.get("query")) {
-  //         const url = updateURLParams(
-  //           searchParams,
-  //           { query: searchQuery || null },
-  //           pathname
-  //         );
-  //         router.push(url);
-  //       }
-  //     }, 500);
-  //     return () => clearTimeout(debounceTimer);
-  //   }, [searchQuery, searchParams, pathname, router]);
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      if (searchQuery !== searchParams.get("query")) {
+        const url = updateURLParams(
+          searchParams,
+          { query: searchQuery || null },
+          pathname
+        );
+        router.push(url);
+      }
+    }, 500);
+    return () => clearTimeout(debounceTimer);
+  }, [searchQuery, searchParams, pathname, router]);
 
-  //   const handleFilterChange = (filter: string) => {
-  //     setSelectedFilter(filter);
-  //     const url = updateURLParams(
-  //       searchParams,
-  //       { filter: filter || null },
-  //       pathname
-  //     );
-  //     router.push(url);
-  //   };
+  const handleFilterChange = (filter: string) => {
+    setSelectedFilter(filter);
+    const url = updateURLParams(
+      searchParams,
+      { filter: filter || null },
+      pathname
+    );
+    router.push(url);
+  };
 
   const renderFilterTrigger = () => (
     <div className="filter-trigger">
@@ -109,8 +108,8 @@ const SharedHeader = ({ subHeader, title, userImg }: SharedHeaderProps) => {
           <input
             type="text"
             placeholder="Search for videos, tags, folders..."
-            // value={searchQuery}
-            // onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
           <Image
             src="/assets/icons/search.svg"
@@ -121,8 +120,8 @@ const SharedHeader = ({ subHeader, title, userImg }: SharedHeaderProps) => {
         </div>
         <DropdownList
           options={filterOptions}
-          // selectedOption={selectedFilter}
-          // onOptionSelect={handleFilterChange}
+          selectedOption={selectedFilter}
+          onOptionSelect={handleFilterChange}
           triggerElement={renderFilterTrigger()}
         />
       </section>

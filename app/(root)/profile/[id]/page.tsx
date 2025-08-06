@@ -1,23 +1,14 @@
-import { SharedHeader, VideoCard } from "@/components";
-import { dummyCards } from "@/constants";
-import { redirect } from "next/navigation";
+import { EmptyState, SharedHeader, VideoCard } from "@/components";
 
-// import { getAllVideosByUser } from "@/lib/actions/video";
-// import { EmptyState, SharedHeader, VideoCard } from "@/components";
+import { getAllVideosByUser } from "@/lib/actions/video";
+import { redirect } from "next/navigation";
 
 const ProfilePage = async ({ params, searchParams }: ParamsWithSearch) => {
   const { id } = await params;
   const { query, filter } = await searchParams;
 
-  const user = {
-    id: "123",
-    name: "John Doe",
-    email: "abc@gmail.com",
-    image: "/assets/images/dummy.jpg",
-  };
-
-  // const { user, videos } = await getAllVideosByUser(id, query, filter);
-  // if (!user) redirect("/404");
+  const { user, videos } = await getAllVideosByUser(id, query, filter);
+  if (!user) redirect("/404");
 
   return (
     <main className="wrapper page">
@@ -27,24 +18,7 @@ const ProfilePage = async ({ params, searchParams }: ParamsWithSearch) => {
         userImg={user?.image ?? ""}
       />
 
-      <section className="video-grid">
-        {dummyCards.map((info) => (
-          <VideoCard
-            key={info.id}
-            id={"1"}
-            title={info.title}
-            thumbnail={info.thumbnail}
-            createdAt={info.createdAt}
-            userImg={info?.userImg ?? ""}
-            username={info?.username ?? "Guest"}
-            views={info.views}
-            visibility={info.visibility}
-            duration={info.duration}
-          />
-        ))}
-      </section>
-
-      {/* {videos?.length > 0 ? (
+      {videos?.length > 0 ? (
         <section className="video-grid">
           {videos.map(({ video }) => (
             <VideoCard
@@ -67,7 +41,7 @@ const ProfilePage = async ({ params, searchParams }: ParamsWithSearch) => {
           title="No Videos Available Yet"
           description="Video will show up here once you upload them."
         />
-      )} */}
+      )}
     </main>
   );
 };
