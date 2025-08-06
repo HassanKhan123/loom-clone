@@ -10,6 +10,7 @@ import { filterOptions } from "@/constants";
 import DropdownList from "./DropdownList";
 import { updateURLParams } from "@/lib/utils";
 import ImageWithFallback from "./ImageWithFallback";
+import RecordScreen from "./RecordScreen";
 
 const SharedHeader = ({ subHeader, title, userImg }: SharedHeaderProps) => {
   const router = useRouter();
@@ -100,7 +101,7 @@ const SharedHeader = ({ subHeader, title, userImg }: SharedHeaderProps) => {
             />
             <span>Upload a video</span>
           </Link>
-          {/* <RecordScreen /> */}
+          <RecordScreen />
         </aside>
       </section>
       <section className="search-filter">

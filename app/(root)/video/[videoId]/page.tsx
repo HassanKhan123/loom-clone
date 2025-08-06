@@ -13,7 +13,6 @@ const page = async ({ params }: Params) => {
 
   return (
     <main className="wrapper page">
-      video details
       <VideoDetailHeader
         title={video.title}
         createdAt={video.createdAt}
