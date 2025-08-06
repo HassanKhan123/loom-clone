@@ -1,40 +1,21 @@
-// import { EmptyState, Pagination, SharedHeader, VideoCard } from "@/components";
-// import { getAllVideos } from "@/lib/actions/video";
+import { EmptyState, Pagination, SharedHeader, VideoCard } from "@/components";
 
-import { SharedHeader, VideoCard } from "@/components";
-import { dummyCards } from "@/constants";
+import { getAllVideos } from "@/lib/actions/video";
 
 const page = async ({ searchParams }: SearchParams) => {
   const { query, filter, page } = await searchParams;
 
-  // const { videos, pagination } = await getAllVideos(
-  //   query,
-  //   filter,
-  //   Number(page) || 1
-  // );
+  const { videos, pagination } = await getAllVideos(
+    query,
+    filter,
+    Number(page) || 1
+  );
 
   return (
     <main className="wrapper page">
       <SharedHeader subHeader="Public Library" title="All Videos" />
 
-      <section className="video-grid">
-        {dummyCards.map((info) => (
-          <VideoCard
-            key={info.id}
-            id={"1"}
-            title={info.title}
-            thumbnail={info.thumbnail}
-            createdAt={info.createdAt}
-            userImg={info?.userImg ?? ""}
-            username={info?.username ?? "Guest"}
-            views={info.views}
-            visibility={info.visibility}
-            duration={info.duration}
-          />
-        ))}
-      </section>
-
-      {/* {videos?.length > 0 ? (
+      {videos?.length > 0 ? (
         <section className="video-grid">
           {videos.map(({ video, user }) => (
             <VideoCard
@@ -66,7 +47,7 @@ const page = async ({ searchParams }: SearchParams) => {
           queryString={query}
           filterString={filter}
         />
-      )} */}
+      )}
     </main>
   );
 };
