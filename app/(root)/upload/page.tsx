@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, FormEvent, ChangeEvent, useEffect } from "react";
-// import {
-//   getVideoUploadUrl,
-//   getThumbnailUploadUrl,
-//   saveVideoDetails,
-// } from "@/lib/actions/video";
+import {
+  getVideoUploadUrl,
+  getThumbnailUploadUrl,
+  saveVideoDetails,
+} from "@/lib/actions/video";
 import { useRouter } from "next/navigation";
 
 import { useFileInput } from "@/lib/hooks/useFileInput";
@@ -44,11 +44,11 @@ const UploadPage = () => {
   const video = useFileInput(MAX_VIDEO_SIZE);
   const thumbnail = useFileInput(MAX_THUMBNAIL_SIZE);
 
-  //   useEffect(() => {
-  //     if (video.duration !== null) {
-  //       setVideoDuration(video.duration);
-  //     }
-  //   }, [video.duration]);
+  useEffect(() => {
+    if (video.duration !== null) {
+      setVideoDuration(video.duration);
+    }
+  }, [video.duration]);
 
   //   useEffect(() => {
   //     const checkForRecordedVideo = async () => {
@@ -104,33 +104,33 @@ const UploadPage = () => {
         setError("Please fill in all required fields.");
         return;
       }
-      //   const {
-      //     videoId,
-      //     uploadUrl: videoUploadUrl,
-      //     accessKey: videoAccessKey,
-      //   } = await getVideoUploadUrl();
-      //   if (!videoUploadUrl || !videoAccessKey)
-      //     throw new Error("Failed to get video upload credentials");
-      //   await uploadFileToBunny(video.file, videoUploadUrl, videoAccessKey);
-      //   const {
-      //     uploadUrl: thumbnailUploadUrl,
-      //     cdnUrl: thumbnailCdnUrl,
-      //     accessKey: thumbnailAccessKey,
-      //   } = await getThumbnailUploadUrl(videoId);
-      //   if (!thumbnailUploadUrl || !thumbnailCdnUrl || !thumbnailAccessKey)
-      //     throw new Error("Failed to get thumbnail upload credentials");
-      //   await uploadFileToBunny(
-      //     thumbnail.file,
-      //     thumbnailUploadUrl,
-      //     thumbnailAccessKey
-      //   );
-      //   await saveVideoDetails({
-      //     videoId,
-      //     thumbnailUrl: thumbnailCdnUrl,
-      //     ...formData,
-      //     duration: videoDuration,
-      //   });
-      //   router.push(`/video/${videoId}`);
+      const {
+        videoId,
+        uploadUrl: videoUploadUrl,
+        accessKey: videoAccessKey,
+      } = await getVideoUploadUrl();
+      if (!videoUploadUrl || !videoAccessKey)
+        throw new Error("Failed to get video upload credentials");
+      await uploadFileToBunny(video.file, videoUploadUrl, videoAccessKey);
+      const {
+        uploadUrl: thumbnailUploadUrl,
+        cdnUrl: thumbnailCdnUrl,
+        accessKey: thumbnailAccessKey,
+      } = await getThumbnailUploadUrl(videoId);
+      if (!thumbnailUploadUrl || !thumbnailCdnUrl || !thumbnailAccessKey)
+        throw new Error("Failed to get thumbnail upload credentials");
+      await uploadFileToBunny(
+        thumbnail.file,
+        thumbnailUploadUrl,
+        thumbnailAccessKey
+      );
+      await saveVideoDetails({
+        videoId,
+        thumbnailUrl: thumbnailCdnUrl,
+        ...formData,
+        duration: videoDuration,
+      });
+      router.push(`/video/${videoId}`);
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
