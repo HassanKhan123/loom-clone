@@ -4,7 +4,7 @@ import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import ImageWithFallback from "./ImageWithFallback";
 
-// import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 // import ImageWithFallback from "./ImageWithFallback";
 const Navbar = () => {
   const router = useRouter();
@@ -39,15 +39,15 @@ const Navbar = () => {
               />
             </button>
             <button
-              // onClick={async () => {
-              //   return await authClient.signOut({
-              //     fetchOptions: {
-              //       onSuccess: () => {
-              //         redirect("/sign-in");
-              //       },
-              //     },
-              //   });
-              // }}
+              onClick={async () => {
+                return await authClient.signOut({
+                  fetchOptions: {
+                    onSuccess: () => {
+                      redirect("/sign-in");
+                    },
+                  },
+                });
+              }}
               className="cursor-pointer"
             >
               <Image
